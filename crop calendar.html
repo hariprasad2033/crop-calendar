@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Crop Calendar</title> <!-- Title updated -->
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1603029334707-dba5cf5d4c01') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 40px;
+      background-color: #ffffffdd;
+      margin-top: 60px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      color: #388e3c;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    select, button {
+      padding: 10px;
+      margin-top: 8px;
+      width: 100%;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 25px;
+      text-align: left;
+      background-color: #f1f8e9;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    #result h3 {
+      color: #33691e;
+      margin-top: 0;
+    }
+
+    ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🌾Crop Calendar Generator</h2> <!-- Heading updated -->
+
+  <form id="cropForm">
+    <label for="crop">Select Crop:</label>
+    <select id="crop" required>
+      <option value="">--Choose Crop--</option>
+      <option value="Rice">Rice</option>
+      <option value="Wheat">Wheat</option>
+      <option value="Maize">Maize</option>
+    </select>
+
+    <label for="region">Select Region:</label>
+    <select id="region" required>
+      <option value="">--Choose Region--</option>
+      <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Punjab">Punjab</option>
+      <option value="Bihar">Bihar</option>
+    </select>
+
+    <button type="submit">Generate Calendar</button>
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  const cropData = {
+    "Rice": {
+      "Sowing": "June - July",
+      "Irrigation": "Weekly after germination",
+      "Fertilizer": "Urea 30 days after sowing",
+      "Harvest": "October - November",
+      "Soil": "Clayey, loamy soil",
+      "Climate": "Hot and humid",
+      "PestControl": "Neem oil or Carbofuran for stem borer"
+    },
+    "Wheat": {
+      "Sowing": "November",
+      "Irrigation": "Every 10 days",
+      "Fertilizer": "DAP during sowing",
+      "Harvest": "April - May",
+      "Soil": "Well-drained loamy soil",
+      "Climate": "Cool and dry",
+      "PestControl": "Chlorpyrifos for aphids"
+    },
+    "Maize": {
+      "Sowing": "June - July",
+      "Irrigation": "Every 7–10 days",
+      "Fertilizer": "Nitrogen-based in 3 stages",
+      "Harvest": "October",
+      "Soil": "Fertile, well-drained sandy loam",
+      "Climate": "Warm and moderate rainfall",
+      "PestControl": "Use Trichogramma or Carbaryl"
+    }
+  };
+
+  document.getElementById("cropForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const crop = document.getElementById("crop").value;
+    const region = document.getElementById("region").value;
+
+    if (!crop || !region) return;
+
+    const data = cropData[crop];
+
+    const resultHTML = `
+      <h3>📄 Crop Calendar for ${crop} in ${region}</h3>
+      <ul>
+        <li><strong>Sowing Period:</strong> ${data.Sowing}</li>
+        <li><strong>Irrigation Schedule:</strong> ${data.Irrigation}</li>
+        <li><strong>Fertilizer Recommendation:</strong> ${data.Fertilizer}</li>
+        <li><strong>Harvest Time:</strong> ${data.Harvest}</li>
+        <li><strong>Recommended Soil Type:</strong> ${data.Soil}</li>
+        <li><strong>Ideal Climate:</strong> ${data.Climate}</li>
+        <li><strong>Pest Control Measures:</strong> ${data.PestControl}</li>
+      </ul>
+    `;
+
+    document.getElementById("result").innerHTML = resultHTML;
+  });
+</script>
+
+</body>
+</html>
